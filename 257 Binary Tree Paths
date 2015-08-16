@@ -1,0 +1,17 @@
+public class Solution {
+    public List<String> binaryTreePaths(TreeNode root) {
+        List<String> res = new ArrayList<String>();
+        if(root == null) return res;
+        String tmp = "" + root.val;
+        helper(root, res, tmp);
+        return res;
+    }
+    public void helper(TreeNode root, List<String> res, String tmp){
+        if(root.left == null && root.right == null){
+            res.add(tmp);
+        }else{
+            if(root.left!=null) helper(root.left, res, tmp+"->"+root.left.val);
+            if(root.right!=null) helper(root.right, res, tmp+"->"+root.right.val);
+        }
+    }
+}
