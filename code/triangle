@@ -1,0 +1,24 @@
+/*
+*  https://leetcode.com/problems/triangle/
+*/
+
+class Solution {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) {
+        int rows = triangle.size();
+        if(rows == 0) return 0;
+        if(rows == 1) return triangle[0][0];
+        int res = INT_MAX;
+        for(int i = 1;i<rows;i++){
+            int pre_columns = i;
+            int cur_columns = i+1;
+            for(int j = 0;j<cur_columns;j++){
+                triangle[i][j] += min(triangle[i-1][j-1<0?0:j-1], triangle[i-1][j>pre_columns-1?pre_columns-1:j]);
+                if(i == rows - 1 &&res>triangle[i][j])
+                    res = triangle[i][j];
+            }
+        }
+        return res;
+        
+    }
+};
