@@ -1,0 +1,40 @@
+class Solution {
+private:
+    int rows;
+    int columns;
+public:
+    int longestIncreasingPath(vector<vector<int>>& matrix) {
+        if(matrix.size() <= 0)
+            return 0;
+        rows = matrix.size();
+        columns = matrix[0].size();
+        vector<vector<int>> depth(rows, vector<int>(columns, -1));
+        int max = 0;
+        for(int i = 0;i<rows;i++)
+            for(int j = 0;j<columns;j++){
+                int value = dfs(i, j, INT_MIN, matrix, depth);
+                if(value > max)
+                    max = value;
+            }
+        return max;
+                
+        
+    }
+    int dfs(int i, int j, int pvalue, vector<vector<int>>& matrix, vector<vector<int>>& depth){
+        if(i<0 || i>=rows || j<0 || j>=columns || matrix[i][j] <= pvalue)
+            return 0;
+        if(depth[i][j] >= 0)
+            return depth[i][j];
+        int max_depth = dfs(i-1, j, matrix[i][j], matrix, depth);
+        int value;
+        if((value = dfs(i, j-1, matrix[i][j], matrix, depth)) > max_depth)
+            max_depth = value;
+        if((value = dfs(i, j+1, matrix[i][j], matrix, depth)) > max_depth)
+            max_depth = value;
+        if((value = dfs(i+1, j, matrix[i][j], matrix, depth)) > max_depth)
+            max_depth = value;
+        depth[i][j] = max_depth + 1;
+        return depth[i][j];
+    }
+    
+};
