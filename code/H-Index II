@@ -1,0 +1,16 @@
+/*
+*https://leetcode.com/problems/h-index-ii/
+*
+*/
+class Solution {
+public:
+    int hIndex(vector<int>& citations) {
+        int left = 0, right = citations.size(), idx = right;
+        while( left < right ) {
+            idx = (left+right)/2;
+            if( citations[idx] < citations.size() - idx ) left = idx+1;
+            else right = idx;
+    }
+    return citations.size() - right;
+    }
+};
