@@ -1,0 +1,23 @@
+/*
+*https://leetcode.com/problems/h-index/
+*
+*/
+
+class Solution {
+public:
+    int hIndex(vector<int>& citations) {
+        int size = citations.size();
+        int i = 0;
+        if(size == 0) return 0;
+        sort(citations.begin(), citations.end(), biggerComp);
+        for(i = 0;i<size;i++){
+            if(citations[i] <= i)
+                break;
+        }
+        return i;
+    }
+    static bool biggerComp(int a, int b){
+        return a>b;
+    }
+    
+};
